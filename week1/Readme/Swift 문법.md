@@ -57,11 +57,11 @@ ex) python - override()
 
 ## Optional
 
-[Optional & TypeCasting](/week1/Readme/Optional & TypeCasting.md)
+[Optional & TypeCasting](https://github.com/UMC-PNU-2nd/iOS-study/blob/Muss/week1/Readme/Optional%20%26%20TypeCasting.md)
 
 ## UIKit & SwiftUI
 
-[UIKit & SwiftUI](/week1/Readme/Optional & UIKit & SwiftUI.md)
+[UIKit & SwiftUI](https://github.com/UMC-PNU-2nd/iOS-study/blob/Muss/week1/Readme/UIKit%20%26%20SwiftUI.md)
 
 ## Func
 
