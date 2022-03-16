@@ -57,11 +57,11 @@ ex) python - override()
 
 ## Optional
 
-[Optional & TypeCasting](Swift%20%E1%84%80%E1%85%B5%E1%84%87%E1%85%A9%20bd00f/Optional%20&%20ea682.md)
+[Optional & TypeCasting](/week1/Readme/Optional & TypeCasting.md)
 
 ## UIKit & SwiftUI
 
-[UIKit & SwiftUI](Swift%20%E1%84%80%E1%85%B5%E1%84%87%E1%85%A9%20bd00f/UIKit%20&%20Sw%20ac372.md)
+[UIKit & SwiftUI](/week1/Readme/Optional & UIKit & SwiftUI.md)
 
 ## Func
 
@@ -71,11 +71,11 @@ ex) python - override()
 
 ### Class
 
-### Struct
-
 - 참조 타입 → 같은 클래스 인스턴스를 여러 개의 변수에 할당한 뒤, 값을 변경시키면 할당한 모든 변수에 영향을 준다(**인스턴스를 만들 때 메모리를 복사하기 때문**)
 - 상속 가능
 - 선언 시, init 함수(초기화 함수) 필요
+
+### Struct
 
 - 값 타입 → 같은 구조체를 여러 개의 변수에 할당한 뒤 값을 변경시키더라도 다른 변수에 영향 X(**값 자체를 복사하기 때문**)
 - 상속 불가능
