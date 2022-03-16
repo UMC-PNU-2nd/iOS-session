@@ -91,8 +91,8 @@ var name:[String]
 - 순서없이 키와 값의 쌍으로 구성되는 컬렉션
 ```Swift
 var codeForName: Dictionary<String, Int> = Dictionary<String,Int>()
-var codeForName:[String,Int] = [String:Int]()
-var codeForName:[String,Int] = [:]
+var codeForName:[String:Int] = [String:Int]()
+var codeForName:[String:Int] = [:]
 ```
 ### 세트
 - 같은타입의 데이터를 순서없이 하나의 묶음으로 저장
