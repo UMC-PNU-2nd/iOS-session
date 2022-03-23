@@ -1,9 +1,9 @@
-###2주차 iOS 스터디 준비
+#2주차 iOS 스터디 준비
 
-##AutoLayout
-##Constraint
-##Inspector
-##SuperView vs SafeArea
+AutoLayout
+Constraint
+Inspector
+SuperView vs SafeArea
 
 #AutoLayout이란?
 자동 레이아웃은 뷰에 설정된 제약(Constanit)을 기반으로 뷰 계층에 있는 모든 뷰의 크기와 위치를 동적으로 계산합니다.
