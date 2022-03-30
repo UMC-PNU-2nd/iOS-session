@@ -192,3 +192,4 @@ private func setUpAttribute() {
 
 NSString, NSMutable 등등은,,, 나중에 하는 걸로! 흐름은 이해 완료 🙂
 
+Hi
