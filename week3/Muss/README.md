@@ -1,5 +1,4 @@
 ## Interface
-
 주로 중간에서 연결해주는 역할을 하는 장치나 소프트웨어에서 많이 사용되는 용어
 
 사용자와 view가 서로 접촉 → User - Controller 사이에서 연결을 담당하는 것이 view
@@ -192,3 +191,4 @@ private func setUpAttribute() {
 
 NSString, NSMutable 등등은,,, 나중에 하는 걸로! 흐름은 이해 완료 🙂
 
+Hi
