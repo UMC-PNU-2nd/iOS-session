@@ -61,6 +61,7 @@ var body: some View {
 <p align="center">
 <img src="https://user-images.githubusercontent.com/55697983/160755885-66f3e1ab-453b-4ef2-8bb7-ddf212832452.png" width="200px"></img>
 </p>
+
 * Image를 사용하기 위해 `Asset.xcassets`에 이미지를 추가
 * `File` > `New` > `File` > User Interface의 `SwiftUi View` 선택하여 생성
 * `Image()` : 해당 이름의 이미지 파일을 불러옴
@@ -95,6 +96,7 @@ var body: some View {
   * `$`를 붙이면 해당 변수를 하위 다른 값과 연결할 수 있음
   * C언어의 주소값을 전달하는 방식과 비슷한것 같음
 * region 변수의 값을 초기에 설정해두고 Map 함수의 coordinateRegion에 $region으로 binding 해주면 사용자가 지도를 이동할 때마다 해당 위치의 위도와 경도 값이 수정 되면서 View에서 update된 값으로 렌더링 해줌
+
 ```Swift
 import SwiftUI
 import MapKit
@@ -166,6 +168,7 @@ var body: some View {
 
 * `Extract Subview` 기능을 통해서 해당 하위 코드를 바로 `struct` 형태로 변경할 수 있음
 * `@State`의 값의 변경을 감지하여 View를 새로 렌더링 하니 특별한 과정 없이도 로그인 성공/실패 창을 
+
 ```Swift
 import SwiftUI
 let lightGreyColor = Color(red: 239.0/255.0, green: 243.0/255.0, blue: 244.0/255.0, opacity: 1.0)
