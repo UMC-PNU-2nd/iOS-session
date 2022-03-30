@@ -33,6 +33,7 @@ var body: some View {
 <p align="center">
 <img src="https://user-images.githubusercontent.com/55697983/160755916-68e29fc4-2e7d-4ab7-bd2a-e8c87bf7b590.png" width="200px"></img>
 </p>
+
 * body는 single view만 반환하기 때문에 content를 여러개 늘리기 위해서는 HStack, VStack을 이용하여 group화 해주어야 함
 * `VStack` : Vertically하게 layout을 그룹화 할 수 있음
 * `HStack` : Horizontally하게 layout을 그룹화 할 수 있음
