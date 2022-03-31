@@ -150,7 +150,7 @@ struct LoginAreaView: View {
                 
             }) {
                 WideButton(text: "로그인",
-                            foreground: Color.white, background: Color("PrimaryColor"))
+                            foreground: Color.white, background: Color("FacebookColor"))
             }
             
             HorizontalDividerWithText(text: "또는")
