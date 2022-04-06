@@ -24,7 +24,7 @@ ViewController에게 데이터를 전달해주는 객체
 
 생각해볼것 
 
- <img src ="https://developers.kakao.com/docs/latest/ko/assets/style/images/message/message_common_friend.png"  width= 400px, height = 600px>
+ <img src ="https://developers.kakao.com/docs/latest/ko/assets/style/images/message/message_common_friend.png"x>
 카카오톡 친구 뷰는
 아래와 같은 구조로 구성되어 있다.
 
@@ -37,7 +37,7 @@ ViewController에게 데이터를 전달해주는 객체
 
 # NotificationCenter
 
-<img src = "https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2Fbha9T2%2FbtqI082BBfE%2Fs3vLeZzvH3XhK4Vk6saXk1%2Fimg.png"  width= 400px, height = 600px>
+<img src = "https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2Fbha9T2%2FbtqI082BBfE%2Fs3vLeZzvH3XhK4Vk6saXk1%2Fimg.png" >
 
 Notification 구조체
 
