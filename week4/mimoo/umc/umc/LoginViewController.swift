@@ -9,7 +9,15 @@ import UIKit
 import SnapKit
 import Then
 
-class LoginViewController: UIViewController {
+import RxCocoa
+import RxSwift
+
+class LoginViewController: UIViewController, RegisterDelegate {
+    
+    var userInfo:UserInfo?
+    
+    let disposeBag = DisposeBag()
+    let viewModel = LoginViewModel()
     
     lazy var mainStackView = UIStackView()
     lazy var logoImageView = UIImageView()
@@ -44,23 +52,25 @@ class LoginViewController: UIViewController {
     
     func setInputStackView() {
         inputStackView.snp.makeConstraints {
-            $0.left.right.equalToSuperview()
+            $0.leading.trailing.equalToSuperview()
         }
         
         setTextField(textField: emailTextField, placeholder: "이메일")
         setTextField(textField: passwordTextField, placeholder: "비밀번호")
     }
     
+    @objc internal func GOHOME(_ sender: Any) {
+        self.view.window?.replaceRootViewController(HomeViewController(), animated: true, completion: nil)
+    }
+    
     func setGoToFindPasswordBtn() {
         goToFindPasswordBtn.then {
             $0.setTitle("비밀번호를 잊으셨나요?", for: .normal)
-            $0.setTitleColor(UIColor(named: "colors/textBtnLabelColor"), for: .normal)
-            $0.titleLabel?.font = UIFont.systemFont(ofSize: FontSize.small)
-            $0.setTitleColor(.blue, for: .highlighted)
-            $0.startAnimatingPressActions()
+            $0.setSmallTextStyle()
         }.snp.makeConstraints {
             $0.trailing.equalToSuperview()
         }
+        goToFindPasswordBtn.addTarget(self, action: #selector(GOHOME(_:)), for: .touchUpInside)
     }
     
     func setFindPasswordView() {
@@ -74,18 +84,29 @@ class LoginViewController: UIViewController {
         setGoToFindPasswordBtn()
     }
     
+    @objc internal func login(_ sender: Any) {
+        guard userInfo != nil else {
+            print("No UserInfo")
+            return
+        }
+        if userInfo?.email == emailTextField.text && userInfo?.password == passwordTextField.text {
+            self.view.window?.replaceRootViewController(HomeViewController(), animated: true, completion: nil)
+        }
+        else {
+            print("Different UserInfo")
+        }
+    }
+    
     func setLoginBtn() {
         loginBtn.then {
             $0.setTitle("로그인", for: .normal)
-            $0.backgroundColor = UIColor(named: "colors/disabledBtnColor")
-            $0.layer.cornerRadius = 10.0
-            $0.setTitleColor(.white, for: .normal)
-            $0.titleLabel?.font = UIFont.systemFont(ofSize: FontSize.middle, weight: UIFont.Weight.bold)
-            $0.startAnimatingPressActions()
+            $0.setDefaultStyle()
+            $0.setDisabled()
         }.snp.makeConstraints {
             $0.height.equalTo(40.0)
             $0.leading.trailing.equalToSuperview()
         }
+        loginBtn.addTarget(self, action: #selector(login(_:)), for: .touchUpInside)
     }
     
     func setOrDivider() {
@@ -95,17 +116,8 @@ class LoginViewController: UIViewController {
     }
     
     func setFacebookLoginBtn() {
-        let facebookIcon:UIImage? = UIImage(named: "로그인/ic_login_facebook")?.resizeImageTo(size: CGSize(width: 20.0, height: 20.0))
-        
-        facebookLoginBtn.then {
-            $0.setTitle("  Facebook으로 로그인", for: .normal)
-            $0.setTitleColor(UIColor(named: "colors/textBtnLabelColor"), for: .normal)
-            $0.setImage(facebookIcon, for: .normal)
-            $0.setImage(facebookIcon, for: .highlighted)
-            $0.layer.cornerRadius = 10.0
-            $0.titleLabel?.font = UIFont.systemFont(ofSize: FontSize.middle, weight: UIFont.Weight.bold)
-            $0.startAnimatingPressActions()
-        }.snp.makeConstraints {
+        facebookLoginBtn.setFacebookLoginStyle()
+        facebookLoginBtn.snp.makeConstraints {
             $0.height.equalTo(40.0)
             $0.leading.trailing.equalToSuperview()
         }
@@ -113,18 +125,16 @@ class LoginViewController: UIViewController {
     
     func addMainStackSubViews() {
         mainStackView.addArrangedSubview(self.logoImageView)
-        mainStackView.setCustomSpacing(30.0, after: logoImageView)
         mainStackView.addArrangedSubview(self.inputStackView)
+        mainStackView.setCustomSpacing(10.0, after: inputStackView)
         mainStackView.addArrangedSubview(self.findPasswordStackView)
-        mainStackView.setCustomSpacing(30.0, after: findPasswordStackView)
         mainStackView.addArrangedSubview(self.loginBtn)
         mainStackView.setCustomSpacing(50.0, after: loginBtn)
         mainStackView.addArrangedSubview(self.orDivider)
-        mainStackView.setCustomSpacing(30.0, after: orDivider)
         mainStackView.addArrangedSubview(self.facebookLoginBtn)
     }
     
-    func setMainStackSubViewsConstraints() {
+    func setMainStackSubViews() {
         setLogoImageView()
         setInputStackView()
         setFindPasswordView()
@@ -148,26 +158,25 @@ class LoginViewController: UIViewController {
             $0.axis = .vertical
             $0.distribution = .fill
             $0.alignment = .center
-            $0.spacing = 10.0
+            $0.spacing = 30.0
         }.snp.makeConstraints {
             $0.centerY.equalToSuperview()
             $0.leading.trailing.equalToSuperview()
         }
         
         addMainStackSubViews()
-        setMainStackSubViewsConstraints()
+        setMainStackSubViews()
     }
     
     @objc internal func goToRegisterVC(_ sender: Any) {
-        self.navigationController?.pushViewController(RegisterViewController(), animated: true)
+        let registerVC = RegisterViewController()
+        registerVC.delegate = self
+        self.navigationController?.pushViewController(registerVC, animated: true)
     }
 
     func setGoToRegisterBtn() {
         goToRegisterBtn.setTitle("계정이 없으신가요? 가입하기", for: .normal)
-        goToRegisterBtn.setTitleColor(UIColor(named: "colors/textBtnLabelColor"), for: .normal)
-        goToRegisterBtn.titleLabel?.font = UIFont.systemFont(ofSize: FontSize.small)
-        goToRegisterBtn.setTitleColor(.blue, for: .highlighted)
-        goToRegisterBtn.startAnimatingPressActions()
+        goToRegisterBtn.setSmallTextStyle()
         goToRegisterBtn.addTarget(self, action: #selector(goToRegisterVC(_:)), for: .touchUpInside)
     }
     
@@ -181,13 +190,46 @@ class LoginViewController: UIViewController {
         }
     }
     
+    func setupBindings() {
+        emailTextField.rx.text.bind(to: viewModel.emailSubject).disposed(by: disposeBag)
+        passwordTextField.rx.text.bind(to: viewModel.passwordSubject).disposed(by: disposeBag)
+        
+        viewModel.isValidForm.bind {
+            if $0 == true {
+                self.loginBtn.setEnabled()
+            }
+            else {
+                self.loginBtn.setDisabled()
+            }
+        }.disposed(by: disposeBag)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = UIColor(named: "colors/backgroundColor")
+        view.backgroundColor = Colors.backgroundColor
         
         setBottomStackView()
         setMainStackView()
+        setupBindings()
+        
+        self.navigationController?.navigationBar.tintColor = UIColor.gray
     }
 
+    func registerCompleted(userInfo: UserInfo) {
+        self.userInfo = userInfo
+    }
 }
 
+class LoginViewModel {
+    let emailSubject = BehaviorRelay<String?>(value: "")
+    let passwordSubject = BehaviorRelay<String?>(value: "")
+    
+    let minPasswordCharacters = 8
+    
+    var isValidForm: Observable<Bool> {
+        return Observable.combineLatest(emailSubject, passwordSubject) { email, password in
+            guard email != nil && password != nil else { return false }
+            return email!.isValidEmail() && password!.count >= self.minPasswordCharacters
+        }
+    }
+}

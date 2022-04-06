@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		AF2E2BE527FC495900289ADC /* StringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF2E2BE427FC495900289ADC /* StringExtension.swift */; };
+		AF2E2BE827FC8C9200289ADC /* UserInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF2E2BE727FC8C9200289ADC /* UserInfo.swift */; };
+		AF2E2BEA27FC8D3400289ADC /* FacebookLoginBtn.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF2E2BE927FC8D3400289ADC /* FacebookLoginBtn.swift */; };
+		AF2E2BEC27FC9F5000289ADC /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF2E2BEB27FC9F5000289ADC /* HomeViewController.swift */; };
+		AF2E2BEE27FCA44900289ADC /* UIWindowExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF2E2BED27FCA44900289ADC /* UIWindowExtension.swift */; };
+		AF2E2BF027FCC06500289ADC /* PostCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF2E2BEF27FCC06500289ADC /* PostCell.swift */; };
 		AF30782A27FA8204005831FF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF30782927FA8204005831FF /* AppDelegate.swift */; };
 		AF30782C27FA8204005831FF /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF30782B27FA8204005831FF /* SceneDelegate.swift */; };
 		AF30782E27FA8204005831FF /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF30782D27FA8204005831FF /* LoginViewController.swift */; };
@@ -20,12 +26,19 @@
 		AF30784827FB4417005831FF /* InputStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF30784727FB4417005831FF /* InputStackView.swift */; };
 		AF30784A27FB55FA005831FF /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF30784927FB55FA005831FF /* RegisterViewController.swift */; };
 		AF30784C27FB5FA9005831FF /* UIImageExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF30784B27FB5FA9005831FF /* UIImageExtension.swift */; };
+		AF708F1C27FD7F310069150B /* StoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF708F1B27FD7F310069150B /* StoryCell.swift */; };
 		E04227E8581BFB856EC02189 /* Pods_umc.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AE1DA00D3792576B8C2184F0 /* Pods_umc.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		68E00759B6008F0F5C2BCB7A /* Pods-umc.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-umc.release.xcconfig"; path = "Target Support Files/Pods-umc/Pods-umc.release.xcconfig"; sourceTree = "<group>"; };
 		AE1DA00D3792576B8C2184F0 /* Pods_umc.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_umc.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		AF2E2BE427FC495900289ADC /* StringExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringExtension.swift; sourceTree = "<group>"; };
+		AF2E2BE727FC8C9200289ADC /* UserInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfo.swift; sourceTree = "<group>"; };
+		AF2E2BE927FC8D3400289ADC /* FacebookLoginBtn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FacebookLoginBtn.swift; sourceTree = "<group>"; };
+		AF2E2BEB27FC9F5000289ADC /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
+		AF2E2BED27FCA44900289ADC /* UIWindowExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIWindowExtension.swift; sourceTree = "<group>"; };
+		AF2E2BEF27FCC06500289ADC /* PostCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostCell.swift; sourceTree = "<group>"; };
 		AF30782627FA8204005831FF /* umc.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = umc.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AF30782927FA8204005831FF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		AF30782B27FA8204005831FF /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -41,6 +54,7 @@
 		AF30784727FB4417005831FF /* InputStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputStackView.swift; sourceTree = "<group>"; };
 		AF30784927FB55FA005831FF /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
 		AF30784B27FB5FA9005831FF /* UIImageExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImageExtension.swift; sourceTree = "<group>"; };
+		AF708F1B27FD7F310069150B /* StoryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoryCell.swift; sourceTree = "<group>"; };
 		DC4E0799F60F2728E38A3FFA /* Pods-umc.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-umc.debug.xcconfig"; path = "Target Support Files/Pods-umc/Pods-umc.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -64,6 +78,14 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		AF2E2BE627FC8C6C00289ADC /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				AF2E2BE727FC8C9200289ADC /* UserInfo.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
 		AF30781D27FA8204005831FF = {
 			isa = PBXGroup;
 			children = (
@@ -85,6 +107,7 @@
 		AF30782827FA8204005831FF /* umc */ = {
 			isa = PBXGroup;
 			children = (
+				AF2E2BE627FC8C6C00289ADC /* Models */,
 				AF30782927FA8204005831FF /* AppDelegate.swift */,
 				AF30782B27FA8204005831FF /* SceneDelegate.swift */,
 				AF30782D27FA8204005831FF /* LoginViewController.swift */,
@@ -99,6 +122,12 @@
 				AF30784727FB4417005831FF /* InputStackView.swift */,
 				AF30784927FB55FA005831FF /* RegisterViewController.swift */,
 				AF30784B27FB5FA9005831FF /* UIImageExtension.swift */,
+				AF2E2BE427FC495900289ADC /* StringExtension.swift */,
+				AF2E2BE927FC8D3400289ADC /* FacebookLoginBtn.swift */,
+				AF2E2BEB27FC9F5000289ADC /* HomeViewController.swift */,
+				AF2E2BED27FCA44900289ADC /* UIWindowExtension.swift */,
+				AF2E2BEF27FCC06500289ADC /* PostCell.swift */,
+				AF708F1B27FD7F310069150B /* StoryCell.swift */,
 			);
 			path = umc;
 			sourceTree = "<group>";
@@ -228,15 +257,22 @@
 			buildActionMask = 2147483647;
 			files = (
 				AF30784A27FB55FA005831FF /* RegisterViewController.swift in Sources */,
+				AF2E2BEA27FC8D3400289ADC /* FacebookLoginBtn.swift in Sources */,
 				AF30784827FB4417005831FF /* InputStackView.swift in Sources */,
 				AF30782E27FA8204005831FF /* LoginViewController.swift in Sources */,
 				AF30784C27FB5FA9005831FF /* UIImageExtension.swift in Sources */,
+				AF2E2BEC27FC9F5000289ADC /* HomeViewController.swift in Sources */,
+				AF708F1C27FD7F310069150B /* StoryCell.swift in Sources */,
+				AF2E2BEE27FCA44900289ADC /* UIWindowExtension.swift in Sources */,
+				AF2E2BE827FC8C9200289ADC /* UserInfo.swift in Sources */,
 				AF30782A27FA8204005831FF /* AppDelegate.swift in Sources */,
 				AF30784027FB2B54005831FF /* BottomStackView.swift in Sources */,
 				AF30784227FB2D64005831FF /* OrDivider.swift in Sources */,
 				AF30784627FB340A005831FF /* MyConstants.swift in Sources */,
 				AF30782C27FA8204005831FF /* SceneDelegate.swift in Sources */,
+				AF2E2BE527FC495900289ADC /* StringExtension.swift in Sources */,
 				AF30784427FB3369005831FF /* UIButtonExtension.swift in Sources */,
+				AF2E2BF027FCC06500289ADC /* PostCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -9,19 +9,28 @@ import UIKit
 import SnapKit
 import Then
 
+import RxCocoa
+import RxSwift
+
 class RegisterViewController: UIViewController {
+    
+    var delegate: RegisterDelegate?
+    
+    let disposeBag = DisposeBag()
+    let viewModel = RegisteringViewModel()
     
     lazy var mainStackView = UIStackView()
     lazy var logoImageView = UIImageView()
     lazy var explainLabel = UILabel()
     lazy var facebookLoginBtn = UIButton()
     lazy var orDivider = OrDivider()
+    
     lazy var inputStackView = InputStackView(textFileds: [emailTextField, nameTextField, nickNameTextField, passwordTextField])
     lazy var emailTextField = UITextField()
     lazy var nameTextField = UITextField()
     lazy var nickNameTextField = UITextField()
     lazy var passwordTextField = UITextField()
-    lazy var RegisterBtn = UIButton()
+    lazy var registerBtn = UIButton()
     
     lazy var bottomStackView = BottomStackView(button: backToLoginBtn)
     lazy var backToLoginBtn = UIButton()
@@ -56,7 +65,7 @@ class RegisterViewController: UIViewController {
     
     func setInputStackView() {
         inputStackView.snp.makeConstraints {
-            $0.left.right.equalToSuperview()
+            $0.leading.trailing.equalToSuperview()
         }
         
         setTextField(textField: emailTextField, placeholder: "휴대폰 번호 또는 이메일 주소")
@@ -66,17 +75,15 @@ class RegisterViewController: UIViewController {
     }
     
     func setRegisterBtn() {
-        RegisterBtn.then {
+        registerBtn.then {
             $0.setTitle("가입", for: .normal)
-            $0.backgroundColor = UIColor(named: "colors/disabledBtnColor")
-            $0.layer.cornerRadius = 10.0
-            $0.setTitleColor(.white, for: .normal)
-            $0.titleLabel?.font = UIFont.systemFont(ofSize: FontSize.middle, weight: UIFont.Weight.bold)
-            $0.startAnimatingPressActions()
+            $0.setDefaultStyle()
+            $0.setDisabled()
         }.snp.makeConstraints {
             $0.height.equalTo(40.0)
             $0.leading.trailing.equalToSuperview()
         }
+        registerBtn.addTarget(self, action: #selector(backToLoginVC(_:)), for: .touchUpInside)
     }
     
     func setOrDivider() {
@@ -86,17 +93,8 @@ class RegisterViewController: UIViewController {
     }
     
     func setFacebookLoginBtn() {
-        let facebookIcon:UIImage? = UIImage(named: "로그인/ic_login_facebook")?.resizeImageTo(size: CGSize(width: 20.0, height: 20.0))
-        
-        facebookLoginBtn.then {
-            $0.setTitle("  Facebook으로 로그인", for: .normal)
-            $0.setTitleColor(UIColor(named: "colors/textBtnLabelColor"), for: .normal)
-            $0.setImage(facebookIcon, for: .normal)
-            $0.setImage(facebookIcon, for: .highlighted)
-            $0.layer.cornerRadius = 10.0
-            $0.titleLabel?.font = UIFont.systemFont(ofSize: FontSize.middle, weight: UIFont.Weight.bold)
-            $0.startAnimatingPressActions()
-        }.snp.makeConstraints {
+        facebookLoginBtn.setFacebookLoginStyle()
+        facebookLoginBtn.snp.makeConstraints {
             $0.height.equalTo(40.0)
             $0.leading.trailing.equalToSuperview()
         }
@@ -106,18 +104,14 @@ class RegisterViewController: UIViewController {
         mainStackView.addArrangedSubview(self.logoImageView)
         mainStackView.setCustomSpacing(10.0, after: logoImageView)
         mainStackView.addArrangedSubview(self.explainLabel)
-        mainStackView.setCustomSpacing(30.0, after: explainLabel)
         mainStackView.addArrangedSubview(self.facebookLoginBtn)
-        mainStackView.setCustomSpacing(30.0, after: facebookLoginBtn)
+        mainStackView.setCustomSpacing(50.0, after: facebookLoginBtn)
         mainStackView.addArrangedSubview(self.orDivider)
-        mainStackView.setCustomSpacing(30.0, after: orDivider)
         mainStackView.addArrangedSubview(self.inputStackView)
-        mainStackView.setCustomSpacing(30.0, after: inputStackView)
-        mainStackView.addArrangedSubview(self.RegisterBtn)
-        mainStackView.setCustomSpacing(50.0, after: RegisterBtn)
+        mainStackView.addArrangedSubview(self.registerBtn)
     }
     
-    func setMainStackSubViewsConstraints() {
+    func setMainStackSubViews() {
         setLogoImageView()
         setExplainLabel()
         setFacebookLoginBtn()
@@ -127,40 +121,32 @@ class RegisterViewController: UIViewController {
     }
     
     func setMainStackView() {
-        let space:UIView = UIView()
-        self.view.addSubview(space)
-        space.snp.makeConstraints {
-            $0.top.equalTo(view)
-            $0.bottom.equalTo(bottomStackView.snp.top)
-            $0.leading.trailing.equalTo(view)
-                .inset(UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 10))
-        }
-        
-        space.addSubview(mainStackView)
+        self.view.addSubview(mainStackView)
         mainStackView.then {
             $0.axis = .vertical
             $0.distribution = .fill
             $0.alignment = .center
-            $0.spacing = 10.0
+            $0.spacing = 30.0
         }.snp.makeConstraints {
             $0.top.equalTo(view.safeAreaLayoutGuide)
-            $0.leading.trailing.equalToSuperview()
+            $0.leading.trailing.equalTo(view)
+                .inset(UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 10))
         }
         
         addMainStackSubViews()
-        setMainStackSubViewsConstraints()
+        setMainStackSubViews()
     }
     
-    @objc internal func backToLoginVC(_ sender: Any) {
+    @objc internal func backToLoginVC(_ sender: UIButton) {
+        if sender == registerBtn {
+            self.delegate?.registerCompleted(userInfo: UserInfo(email: emailTextField.text!, name: nameTextField.text!, nickName: nickNameTextField.text!, password: passwordTextField.text!))
+        }
         self.navigationController?.popViewController(animated: true)
     }
 
     func setBackToLoginBtn() {
         backToLoginBtn.setTitle("계정이 있으신가요? 로그인하기", for: .normal)
-        backToLoginBtn.setTitleColor(UIColor(named: "colors/textBtnLabelColor"), for: .normal)
-        backToLoginBtn.titleLabel?.font = UIFont.systemFont(ofSize: FontSize.small)
-        backToLoginBtn.setTitleColor(.blue, for: .highlighted)
-        backToLoginBtn.startAnimatingPressActions()
+        backToLoginBtn.setSmallTextStyle()
         backToLoginBtn.addTarget(self, action: #selector(backToLoginVC(_:)), for: .touchUpInside)
     }
     
@@ -174,31 +160,51 @@ class RegisterViewController: UIViewController {
         }
     }
     
+    func setupBindings() {
+        emailTextField.rx.text.bind(to: viewModel.emailSubject).disposed(by: disposeBag)
+        nameTextField.rx.text.bind(to: viewModel.nameSubject).disposed(by: disposeBag)
+        nickNameTextField.rx.text.bind(to: viewModel.nickNameSubject).disposed(by: disposeBag)
+        passwordTextField.rx.text.bind(to: viewModel.passwordSubject).disposed(by: disposeBag)
+        
+        viewModel.isValidForm.bind {
+            if $0 == true {
+                self.registerBtn.setEnabled()
+            }
+            else {
+                self.registerBtn.setDisabled()
+            }
+        }.disposed(by: disposeBag)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = UIColor(named: "colors/backgroundColor")
+        view.backgroundColor = Colors.backgroundColor
         
         setBottomStackView()
         setMainStackView()
+        setupBindings()
     }
 
 }
 
-struct UserInfo {
-    var email: String = ""
-    var name: String = ""
-    var nickName: String = ""
-    var password: String = ""
+protocol RegisterDelegate {
+    func registerCompleted(userInfo: UserInfo)
 }
 
-
-/*
-
-mvvm
-https://ichi.pro/ko/swift-mich-mvvm-dijain-paeteon-eul-sayonghan-logeu-in-hwamyeon-guhyeon-74723834678771
- 
- 
- navigator
- https://velog.io/@leeyoungwoozz/iOS-storyboard-%EA%B0%80-%EC%95%84%EB%8B%8C-%EC%BD%94%EB%93%9C%EB%A1%9C-UI-%EA%B5%AC%ED%98%84%ED%95%98%EA%B8%B0-Navigation-Controller
-*/
-
+class RegisteringViewModel {
+    let emailSubject = BehaviorRelay<String?>(value: "")
+    let nameSubject = BehaviorRelay<String?>(value: "")
+    let nickNameSubject = BehaviorRelay<String?>(value: "")
+    let passwordSubject = BehaviorRelay<String?>(value: "")
+    
+    let minNameCharacters = 3
+    
+    var isValidForm: Observable<Bool> {
+        return Observable.combineLatest(emailSubject, nameSubject, nickNameSubject, passwordSubject) { email, name, nickName, password in
+            guard email != nil && name != nil && nickName != nil && password != nil else {
+                return false
+            }
+            return email!.isValidEmail() && name!.count >= self.minNameCharacters && nickName!.count >= self.minNameCharacters && password!.isValidPassword()
+        }
+    }
+}

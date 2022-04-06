@@ -22,7 +22,6 @@ class OrDivider:UIView {
     
     func setup() {
         addSubview(orDivider)
-        
         orDivider.snp.makeConstraints {
             $0.edges.equalToSuperview()
         }
