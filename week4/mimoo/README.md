@@ -97,6 +97,11 @@ class CustomView:UIView {
 ```
 매개변수인 클로저를 해당 함수안에서만 사용할 경우 `@escaping`이 필요 없지만, 저장해서 다른 데서도 써야할 경우 Escaping Closure를 사용해야 한다.
 
+- non-escaping 클로저: 컴파일러가 클로저의 실행이 시작과 종료 시점을 알기 때문에, 클로저 내부 객체를 효율적으로 관리
+- esacping 클로저: 함수 밖에서 실행되므로 클로저에서 사용하는 객체에 대한 추가적인 참조 싸이클을 관리  
+
+컴파일러 퍼포먼스, 최적화에 차이가 있으므로 잘 쓰자
+
 #### extension
 ```swift
 extension UIButton {
@@ -208,12 +213,10 @@ extension UIButton {
     }
     
     @objc private func springAnimateDown(sender: UIButton) {
-        print("!")
         springAnimate(sender, transform: CGAffineTransform.identity.scaledBy(x: 0.98, y: 0.98))
     }
     
     @objc private func springAnimateUp(sender: UIButton) {
-        print("!!")
         springAnimate(sender, transform: .identity)
     }
     
