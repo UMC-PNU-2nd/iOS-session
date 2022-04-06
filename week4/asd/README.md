@@ -268,8 +268,6 @@ struct LandmarkList_Previews: PreviewProvider {
 
 * 아이패드도 가능
 * 아이패드의 `Navigation View`는 자동으로 좌측 `Drawer`형태로 지정됨
-* 
-<img width="439" alt="image" src="https://user-images.githubusercontent.com/55697983/161948483-7837108d-3360-41ee-a6ff-55ddf52bbc44.png">
 
 <p align="center">
 <img src="https://user-images.githubusercontent.com/55697983/161948483-7837108d-3360-41ee-a6ff-55ddf52bbc44.png" width="439px"></img>
