@@ -24,7 +24,7 @@ ViewController에게 데이터를 전달해주는 객체
 
 생각해볼것 
 
- <img src ="https://developers.kakao.com/docs/latest/ko/assets/style/images/message/message_common_friend.png"x>
+ <img src ="https://developers.kakao.com/docs/latest/ko/assets/style/images/message/message_common_friend.png">
 카카오톡 친구 뷰는
 아래와 같은 구조로 구성되어 있다.
 
