@@ -1,6 +1,6 @@
 # 프로토콜 지향 언어
 <p>
-<img src = "https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2Fb00LNH%2Fbtq0EDcpENr%2Fu72LKY6EMzmknlZFlkubg0%2Fimg.png">
+<img src = "https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2Fb00LNH%2Fbtq0EDcpENr%2Fu72LKY6EMzmknlZFlkubg0%2Fimg.png" width= 400px, height = 600px>
 </p>
 - 위예제처럼 프로토콜과 익스텐션을 결합하면 코드의 재사용성이 훨씬 증가하게 됩니다.
 
