@@ -8,7 +8,7 @@
 
 - 만약에 프로토콜의 익스텐션에서 구현한 기능을 사용하지 않고 타입의 특성에 따라 조금 변경해서 구현하고 싶으면 프로토콜을 상속한 class { } 안에 재정의를 해주면 됩니다.
 <p>
-<img src = "https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FbDuuRY%2Fbtq0AHz4Fk2%2F1Knno8IiSQGQFOkbmc7EJ1%2Fimg.png">
+<img src = "https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FbDuuRY%2Fbtq0AHz4Fk2%2F1Knno8IiSQGQFOkbmc7EJ1%2Fimg.png"  width= 400px, height = 600px>
 </p>
 - 2번째 functionTest(_: String) -> String 메소드는 이미 프로토콜을 준수하는 타입의 메소드를 호출했으므로 특정 프로토콜 준수하는 타입에 프로토콜의 요구사항을 찾아보고 이미 구현되어 있다면 그 기능을 호출하고, 그렇지 않으면 초기 구현의 기능을 호출합니다.
 
@@ -24,7 +24,7 @@ ViewController에게 데이터를 전달해주는 객체
 
 생각해볼것 
 
- <img src ="https://developers.kakao.com/docs/latest/ko/assets/style/images/message/message_common_friend.png">
+ <img src ="https://developers.kakao.com/docs/latest/ko/assets/style/images/message/message_common_friend.png"  width= 400px, height = 600px>
 카카오톡 친구 뷰는
 아래와 같은 구조로 구성되어 있다.
 
@@ -37,7 +37,7 @@ ViewController에게 데이터를 전달해주는 객체
 
 # NotificationCenter
 
-<img src = "https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2Fbha9T2%2FbtqI082BBfE%2Fs3vLeZzvH3XhK4Vk6saXk1%2Fimg.png">
+<img src = "https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2Fbha9T2%2FbtqI082BBfE%2Fs3vLeZzvH3XhK4Vk6saXk1%2Fimg.png"  width= 400px, height = 600px>
 
 Notification 구조체
 
