@@ -30,6 +30,7 @@
 * `Hashable protocol` : 각 데이터가 고유한 값이여야 한다면 `Hash`를 통해 `key`로 구분해줄 수 있음
 * `Codable protocol` : `Encodable`과 `Decodable`이 합쳐진 프로토콜로 파일 입출력시 사용
 * `CoreLocation` : 위치 정보를 유용하게 사용할 수 있는 `MapKit` 프레임워크
+
 ```Swift
 import Foundation
 import SwiftUI
@@ -157,7 +158,8 @@ struct LandmarkRow_Previews: PreviewProvider {
 
 * `List`: 리스트 형태로 보여줌
 * 고유값을 가지기 위해 `id`가 필요함 `id: \.id`
-* 하지만 객체에 `Identifiable` 프로토콜을 추가하면 자동으로 프로토콜에 있는 `id` 
+* 하지만 객체에 `Identifiable` 프로토콜을 추가하면 자동으로 프로토콜에 있는 `id`
+
 ```Swift
 import SwiftUI
 
