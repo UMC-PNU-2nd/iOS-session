@@ -6,19 +6,16 @@
 //
 
 import Foundation
-
 import UIKit
 import SnapKit
 import Then
+import RxSwift
+import RxRelay
+import RxCocoa
 
-class SignupViewController: UIViewController, SignupDataDelegate {
-    
-    var previousController: ViewController?
-    var signupViewModel = SignupViewModel()
-    
-    func getSignupData() {
-        previousController?.signupData = signupViewModel.signupData
-    }
+class SignupViewController: UIViewController {
+    let disposeBag = DisposeBag()
+    let signupViewModel = SignupViewModel()
     
     let logoImageView = UIImageView().then {
         $0.image = UIImage(named: "ic_catstagram_logo")
@@ -46,19 +43,12 @@ class SignupViewController: UIViewController, SignupDataDelegate {
         $0.textAlignment = .center
     }
     
-    let emailInputField = getInputTextField(placeholder: "휴대폰 번호 또는 이메일 주소").then {
-        $0.addTarget(self, action: #selector(textFieldEditingChanged), for: .editingChanged)
-    }
+    let emailInputField = getInputTextField(placeholder: "휴대폰 번호 또는 이메일 주소")
     
-    let nameInputField = getInputTextField(placeholder: "성명").then {
-        $0.addTarget(self, action: #selector(textFieldEditingChanged), for: .editingChanged)
-    }
-    let usernameInputField = getInputTextField(placeholder: "사용자 이름").then {
-        $0.addTarget(self, action: #selector(textFieldEditingChanged), for: .editingChanged)
-    }
+    let nameInputField = getInputTextField(placeholder: "성명")
+    let usernameInputField = getInputTextField(placeholder: "사용자 이름")
     let passwordInputField = getInputTextField(placeholder: "비밀번호").then {
         $0.isSecureTextEntry = true
-        $0.addTarget(self, action: #selector(textFieldEditingChanged), for: .editingChanged)
     }
     
     let signupButton = UIButton().then {
@@ -81,8 +71,44 @@ class SignupViewController: UIViewController, SignupDataDelegate {
         configureHorizontalDivierWithText()
         configureInputFields()
         configureSignupButton()
+        setupBindings()
         
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "arrow.left"), style: .done, target: self, action: #selector(back))
+    }
+    
+    func setupBindings() {
+        Observable.combineLatest(
+            emailInputField.rx.text,
+            nameInputField.rx.text,
+            usernameInputField.rx.text,
+            passwordInputField.rx.text
+        )
+        .map {
+            var signupData = SignupModel()
+            signupData.email = $0!
+            signupData.name = $1!
+            signupData.username = $2!
+            signupData.password = $3!
+            return signupData
+        }
+        .bind(to: signupViewModel.signupSubject)
+        .disposed(by: disposeBag)
+        
+        signupViewModel.bind(Signup.email, emailInputField.rx.text)
+        
+        signupViewModel.bind(Signup.name, nameInputField.rx.text)
+        
+        signupViewModel.bind(Signup.username, usernameInputField.rx.text)
+        
+        signupViewModel.bind(Signup.password, passwordInputField.rx.text)
+        
+        signupViewModel.isValid.bind {
+            if $0 == true {
+                self.signupButton.isEnabled = true
+            } else {
+                self.signupButton.isEnabled = false
+            }
+        }.disposed(by: disposeBag)
     }
     
     @objc
@@ -182,41 +208,12 @@ class SignupViewController: UIViewController, SignupDataDelegate {
         }
     }
     
-   
     func configureLogoImage() {
         view.addSubview(logoImageView)
         logoImageView.snp.makeConstraints {
             $0.centerX.equalToSuperview()
             $0.width.equalToSuperview().multipliedBy(0.75/1)
             $0.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(20)
-        }
-    }
-    
-    @objc
-    func textFieldEditingChanged(_ sender: PaddedTextField) {
-        let text = sender.text ?? ""
-        switch sender {
-        case emailInputField:
-            signupViewModel.signupData.email = text
-        case nameInputField:
-            signupViewModel.signupData.name = text
-        case usernameInputField :
-            signupViewModel.signupData.username = text
-        case passwordInputField:
-            signupViewModel.signupData.password = text
-        default:
-            print()
-        }
-        setSignupButton()
-        print(text)
-    }
-    
-    @objc
-    func setSignupButton() {
-        if signupViewModel.isValid {
-            signupButton.isEnabled = true
-        } else {
-            signupButton.isEnabled = false
         }
     }
     

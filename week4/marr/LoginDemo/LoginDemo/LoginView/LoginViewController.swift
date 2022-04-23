@@ -5,17 +5,20 @@
 //  Created by Lee Jun Young on 2022/04/01.
 //
 
+import Foundation
 import UIKit
 import SnapKit
 import Then
+import RxCocoa
+import RxSwift
 
 protocol SignupDataDelegate {
     func getSignupData()
 }
 
-class ViewController: UIViewController {
-    
-    var signupData: SignupData?
+class LoginViewController: UIViewController {
+    let disposeBag = DisposeBag()
+    let loginViewModel = LoginViewModel()
     
     let logoImageView = UIImageView().then {
         $0.image = UIImage(named: "ic_catstagram_logo")
@@ -31,9 +34,9 @@ class ViewController: UIViewController {
     
     let loginButton = UIButton().then {
         let facebookColor = UIColor(named: "Facebook_color") ?? UIColor.blue
-        $0.setBackgroundColor(facebookColor, for: .normal)
+        $0.setBackgroundColor($0.isEnabled ? facebookColor : facebookColor.withAlphaComponent(0.25), for: .normal)
         $0.setBackgroundColor(facebookColor.withAlphaComponent(0.625), for: .highlighted)
-        
+        $0.isEnabled = false
         $0.setTitle("로그인", for: .normal)
         $0.titleLabel?.font = UIFont.systemFont(ofSize: 17, weight: .bold)
         $0.layer.masksToBounds = true
@@ -73,7 +76,6 @@ class ViewController: UIViewController {
     
     @objc func signUpLinkOnClick() {
         let signupViewController = SignupViewController()
-        signupViewController.previousController = self
         self.navigationController?.pushViewController(signupViewController, animated: true)
         
     }
@@ -93,6 +95,25 @@ class ViewController: UIViewController {
         configureHorizontalDivierWithText()
         configureFacebookLoginButton()
         configureSignUpLink()
+        setBindings()
+    }
+    
+    func setBindings() {
+        Observable.combineLatest(emailInputField.rx.text, passwordInput.rx.text).map {
+            var loginModel = LoginModel()
+            loginModel.email = $0!
+            loginModel.password = $1!
+            return loginModel
+        }.bind(to: loginViewModel.loginSubject)
+            .disposed(by: disposeBag)
+        
+        loginViewModel.isValid.bind {
+            if $0 == true {
+                self.loginButton.isEnabled = true
+            } else {
+                self.loginButton.isEnabled = false
+            }
+        }.disposed(by: disposeBag)
     }
     
     func configureSignUpLink() {
@@ -200,13 +221,13 @@ class ViewController: UIViewController {
 import SwiftUI
 
 struct ViewControllerRepresentable: UIViewControllerRepresentable {
-    typealias UIViewControllerType = ViewController
+    typealias UIViewControllerType = LoginViewController
     
-    func makeUIViewController(context: Context) -> ViewController {
-        return ViewController()
+    func makeUIViewController(context: Context) -> LoginViewController {
+        return LoginViewController()
     }
     
-    func updateUIViewController(_ uiViewController: ViewController, context: Context) {}
+    func updateUIViewController(_ uiViewController: LoginViewController, context: Context) {}
 }
 
 struct ViewPreview: PreviewProvider {

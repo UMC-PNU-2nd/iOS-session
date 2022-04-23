@@ -27,8 +27,8 @@ extension UIButton {
 }
 
 class PaddedTextField: UITextField {
-    var inset: CGFloat = 10
     
+    var inset: CGFloat = 10
     convenience init() {
         self.init(frame: CGRect(x: 0, y: 0, width: 200, height: 50))
         

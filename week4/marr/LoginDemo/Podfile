@@ -8,4 +8,6 @@ target 'LoginDemo' do
   pod 'SnapKit', '~> 5.0.0'
   pod 'RxSwift'
   pod 'RxRelay'
+  pod 'RxCocoa'
+  pod 'RxGesture'
 end
