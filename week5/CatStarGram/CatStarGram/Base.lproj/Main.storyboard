@@ -684,6 +684,7 @@
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </tableView>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="0vu-sK-caC"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="BYR-Ks-6Hz" firstAttribute="leading" secondItem="B6j-5x-UNb" secondAttribute="leadingMargin" id="1iJ-e9-whe"/>
