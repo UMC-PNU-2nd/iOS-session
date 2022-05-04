@@ -6,12 +6,16 @@
 //
 
 import UIKit
+import Kingfisher
 
 class HomeViewController: UIViewController {
 
-    @IBOutlet weak var tableView: UITableView!
     
-
+    @IBOutlet weak var tableView: UITableView!
+    var arrayCat : [FeedModel] = []
+    
+    let imagePickerViewController = UIImagePickerController()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -23,13 +27,23 @@ class HomeViewController: UIViewController {
         let storyNib = UINib(nibName: "StoryTableViewCell", bundle: nil)
         tableView.register(storyNib, forCellReuseIdentifier: "StoryTableViewCell")
         // Do any additional setup after loading the view.
+        
+        let input = FeedAPIInput(limit: 30, page: 10)
+        FeedDataManager().FeedDataManager(input, self)
+        
+        imagePickerViewController.delegate = self
+    }
+    
+    @IBAction func buttonGoAlbum(_ sender: Any) {
+        self.imagePickerViewController.sourceType = .photoLibrary
+        self.present(imagePickerViewController, animated: true, completion: nil)
     }
 }
 
 
 extension HomeViewController : UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 10
+        return arrayCat.count + 1
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -41,6 +55,13 @@ extension HomeViewController : UITableViewDelegate, UITableViewDataSource {
             return cell
         } else {
             guard let cell = tableView.dequeueReusableCell(withIdentifier: "FeedTableViewCell", for: indexPath) as? FeedTableViewCell else {return UITableViewCell()}
+            
+            if let urlString = arrayCat[indexPath.row - 1].url {
+                //URL타입으로 변환
+                let url = URL(string: urlString)
+                //Kingfisher 사용해서 이미지 띄우기
+                cell.imageViewFeed.kf.setImage(with: url)
+            }
             
             cell.selectionStyle = .none
             return cell
@@ -84,4 +105,31 @@ extension HomeViewController : UICollectionViewDelegate, UICollectionViewDataSou
     }
     
     
+}
+
+extension HomeViewController{
+    func successAPI(_ result: [FeedModel]) {
+        arrayCat = result
+        tableView.reloadData()
+    }
+}
+
+extension HomeViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate{
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        if let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage{
+            
+            //직접 시뮬레이터 파일 올릴려면 image 사용, 지금은 링크로 바로 보내기
+            let imageString = "https://firebasestorage.googleapis.com/v0/b/catstargram-d7fbf.appspot.com/o/Cat1?alt=media&token=e92d1af6-ceb3-4a0c-9ba9-acd5cf534a42"
+//            let data = image.jpegData(compressionQuality: 1)
+                
+            // You can change your image name here, i use NSURL image and convert into string
+//            let imageURL = info[UIImagePickerControllerReferenceURL] as! NSURL
+//            let fileName = imageURL.absouluteString
+            
+            let input = FeedUploadInput(content: "지노 상이입니다, 귀엽지 않나요?", postImgsUrl: [imageString])
+            FeedUploadDataManager().posts(self, input)
+            
+            self.dismiss(animated: true)
+        }
+    }
 }

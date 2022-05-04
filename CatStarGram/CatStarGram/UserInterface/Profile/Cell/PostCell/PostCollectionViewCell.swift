@@ -16,9 +16,15 @@ class PostCollectionViewCell: UICollectionViewCell {
         super.awakeFromNib()
         // Initialization code
     }
-
     
-    public func setUpData() {
-        // 이미지뷰의 이미지를 업로드한다.
+    public func setUpData(_ imageURLStr : String?) {
+        // 이미지뷰의 이미지 업로드
+        
+        guard let imageURLStr = imageURLStr else {return}
+        if let url = URL(string: imageURLStr) {
+            postImageView.kf.setImage(
+                with: url,
+                placeholder: UIImage(systemName: "photo"))
+        }
     }
 }
