@@ -7,6 +7,7 @@
 
 import UIKit
 import Kingfisher
+import SwiftUI
 
 class ProfileViewController: UIViewController, UIGestureRecognizerDelegate {
     // MARK: - Properties
@@ -14,8 +15,12 @@ class ProfileViewController: UIViewController, UIGestureRecognizerDelegate {
     @IBOutlet weak var profileCollectionView: UICollectionView!
     
     var userPosts : [GetUserPost]? {
-        didSet {self.profileCollectionView.reloadData()}
+        didSet {
+            self.profileCollectionView.reloadData()
+        }
     }
+    
+    var deletedIndex: Int?
     
     // MARK: - LifeCycle
     
@@ -38,6 +43,7 @@ class ProfileViewController: UIViewController, UIGestureRecognizerDelegate {
             
             guard let userPosts = self.userPosts else {return}
             let cellData = userPosts[indexPath.item]
+            self.deletedIndex = indexPath.item
             if let postIdx = cellData.postIdx{
                 // 삭제 API 호출
                 UserFeedDataManager().deleteUserFeed(self, postIdx)
@@ -120,7 +126,7 @@ extension ProfileViewController: UICollectionViewDelegate, UICollectionViewDataS
             
             if let cellData = self.userPosts {
                 // 데이터가 있는 경우, cell에 데이터 전달
-                cell.setUpData(cellData[itemIndex].postImgURL) // <-- 데이터 전달(public 으로 정의한 함수라 가능)
+                cell.setUpData(cellData[itemIndex].postImgUrl) // <-- 데이터 전달(public 으로 정의한 함수라 가능)
             }
             return cell
             
@@ -168,6 +174,14 @@ extension ProfileViewController: UICollectionViewDelegateFlowLayout {
 //API 통신 메소드
 extension ProfileViewController {
     func successFeedAPI(_ result: UserFeedModel) {
-        self.userPosts = result.result.getUserPosts
+        self.userPosts = result.result?.getUserPosts
+    }
+    
+    func successDeletePostAPI(_ isSuccess: Bool) {
+        guard isSuccess else {return}
+        
+        if let deletedIndex = self.deletedIndex {
+            self.userPosts?.remove(at: deletedIndex)
+        }
     }
 }

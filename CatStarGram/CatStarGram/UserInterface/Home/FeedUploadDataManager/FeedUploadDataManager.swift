@@ -16,7 +16,7 @@ class FeedUploadDataManager{
             switch response.result {
             case .success(let result):
                 if result.isSuccess{
-                    print("성공")
+                    print("업로드 성공")
                 } else {
                     print(result.message)
                 }

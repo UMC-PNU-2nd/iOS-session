@@ -10,14 +10,14 @@ struct UserFeedModel:Decodable {
     let isSuccess: Bool?
     let code: Int?
     let message: String?
-    let result: Result
+    let result: Result?
 }
 
 // MARK: - Result
 struct Result: Decodable {
     let isMyFeed: Bool?
-    let getUserInfo: GetUserInfo
-    let getUserPosts: [GetUserPost]
+    let getUserInfo: GetUserInfo?
+    let getUserPosts: [GetUserPost]?
 }
 
 // MARK: - GetUserInfo
@@ -33,5 +33,5 @@ struct GetUserInfo: Decodable {
 // MARK: - GetUserPost
 struct GetUserPost: Decodable{
     let postIdx: Int?
-    let postImgURL: String?
+    let postImgUrl: String?
 }

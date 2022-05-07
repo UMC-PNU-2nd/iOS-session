@@ -10,5 +10,5 @@ struct DeleteUserFeed: Decodable {
     let isSuccess: Bool?
     let code: Int?
     let message: String?
-    let reult: String?
+    let result: String?
 }

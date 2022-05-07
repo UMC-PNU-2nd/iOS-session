@@ -22,7 +22,7 @@ class UserFeedDataManager {
         .responseDecodable(of: UserFeedModel.self) { response in
             switch response.result{
             case .success(let result):
-                print("성공")
+                print("조회 성공")
                 viewController.successFeedAPI(result)
             case .failure(let error):
                 print(error.localizedDescription)
@@ -35,15 +35,15 @@ class UserFeedDataManager {
                      _ postIdx: Int) {
         
         //게시
-        AF.request("https://edu-api-ios-test.softsquared.com/users/posts/\(postIdx)/status",
+        AF.request("https://edu-api-ios-test.softsquared.com/posts/\(postIdx)/status",
                    method: .patch,
                    parameters: nil)
         .validate()
         .responseDecodable(of: DeleteUserFeed.self) { response in
             switch response.result{
             case .success(let result):
-                print("DEBUG: ", result)
-                
+                viewController.successDeletePostAPI(result.isSuccess ?? false)
+                print("삭제 성공")
             case .failure(let error):
                 print(error.localizedDescription)
             }
