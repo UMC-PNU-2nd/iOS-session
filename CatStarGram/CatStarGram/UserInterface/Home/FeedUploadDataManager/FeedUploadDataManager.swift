@@ -11,7 +11,13 @@ import Alamofire
 class FeedUploadDataManager{
     func posts(_ viewController : HomeViewController, _ parameter: FeedUploadInput) {
         //url-> base url + 추가할 url
-        AF.request("https://edu-api-ios-test.softsquared.com/posts", method: .post, parameters: parameter, encoder: JSONParameterEncoder.default, headers: nil).validate().responseDecodable(of: FeedUploadModel.self) { response in
+        AF.request("https://edu-api-ios-test.softsquared.com/posts",
+                   method: .post,
+                   parameters: parameter,
+                   encoder: JSONParameterEncoder.default,
+                   headers: nil)
+            .validate()
+            .responseDecodable(of: FeedUploadModel.self) { response in
             
             switch response.result {
             case .success(let result):
