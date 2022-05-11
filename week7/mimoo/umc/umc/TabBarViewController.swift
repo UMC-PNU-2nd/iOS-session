@@ -55,16 +55,10 @@ extension TabBarViewController {
         switch item.title! {
         case "Home":
             print("now Home")
-            let reelsViewController = self.viewControllers![1] as! ReelsViewController
-            reelsViewController.stopLoop()
         case "Reels":
             print("now Reels")
-            let reelsViewController = self.viewControllers![1] as! ReelsViewController
-            reelsViewController.startLoop()
         case "Profile":
             print("now Profile")
-            let reelsViewController = self.viewControllers![1] as! ReelsViewController
-            reelsViewController.stopLoop()
         default:
             print("tabBar Error")
         }

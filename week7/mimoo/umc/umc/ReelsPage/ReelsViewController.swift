@@ -72,6 +72,13 @@ class ReelsViewController: UIViewController {
         
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        startLoop()
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        stopLoop()
+    }
 }
 
 extension ReelsViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {

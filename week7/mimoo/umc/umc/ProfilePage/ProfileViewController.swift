@@ -14,7 +14,7 @@ import RxSwift
 
 class ProfileViewController: UIViewController, UIGestureRecognizerDelegate {
     
-    private var refresh_control = UIRefreshControl()
+    private var refreshControl = UIRefreshControl()
     
     let postSpacing:Double = 3.0
 
@@ -130,7 +130,7 @@ class ProfileViewController: UIViewController, UIGestureRecognizerDelegate {
         
         self.view.addSubview(myCollectionView)
         setCollectionView()
-        refreshControl()
+        setRefreshControl()
         setUpData()
     }
     
@@ -151,24 +151,22 @@ extension ProfileViewController {
 }
 
 extension ProfileViewController {
-    private func refreshControl() {
+    private func setRefreshControl() {
         if #available(iOS 10.0, *) {
-            myCollectionView.refreshControl = refresh_control
+            myCollectionView.refreshControl = refreshControl
         }
         else {
-            myCollectionView.addSubview(refresh_control)
-            
+            myCollectionView.addSubview(refreshControl)
         }
-        refresh_control.tintColor = .black
-        refresh_control.addTarget(self, action: #selector(initRefresh), for: .valueChanged)
+        refreshControl.tintColor = .black
+        refreshControl.addTarget(self, action: #selector(initRefresh), for: .valueChanged)
     }
     @objc func initRefresh() {
         setUpData()
     }
     
     func refrechControlEnd() {
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1) { self.refresh_control.endRefreshing()
-        }
+        DispatchQueue.main.async { self.refreshControl.endRefreshing() }
     }
 
 }
@@ -202,8 +200,8 @@ extension ProfileViewController: UICollectionViewDelegate, UICollectionViewDataS
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell =  collectionView.dequeueReusableCell(withReuseIdentifier: "MyPostCell", for: indexPath) as! MyFeedCell
         let index = indexPath.item
-        if let cellData = self.userPosts {
-            cell.setup(userPosts?[index].postImgUrl)
+        if let cellData = self.userPosts?[index] {
+            cell.setup(cellData.postImgUrl)
         }
         return cell
     }
