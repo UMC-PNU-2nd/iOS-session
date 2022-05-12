@@ -120,7 +120,7 @@ extension HomeViewController: UIImagePickerControllerDelegate, UINavigationContr
             
             //직접 시뮬레이터 파일 올릴려면 image 사용, 지금은 링크로 바로 보내기
             let imageString = "https://firebasestorage.googleapis.com/v0/b/catstargram-d7fbf.appspot.com/o/Cat1?alt=media&token=e92d1af6-ceb3-4a0c-9ba9-acd5cf534a42"
-//            let data = image.jpegData(compressionQuality: 1)
+            let data = image.jpegData(compressionQuality: 1)
                 
             // You can change your image name here, i use NSURL image and convert into string
 //            let imageURL = info[UIImagePickerControllerReferenceURL] as! NSURL

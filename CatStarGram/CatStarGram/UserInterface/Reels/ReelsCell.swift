@@ -85,7 +85,6 @@ class ReelsCell: UICollectionViewCell {
             make.top.equalToSuperview().offset(20)
             make.trailing.equalToSuperview().offset(-20)
             make.width.height.equalTo(35)
-
         }
         
         shareImageView.snp.makeConstraints { make in

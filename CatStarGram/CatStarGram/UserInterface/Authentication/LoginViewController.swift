@@ -71,6 +71,7 @@ class LoginViewController: UIViewController {
         if userInfo.email == self.email && userInfo.pw == self.password {
             
             let vc = storyboard?.instantiateViewController(withIdentifier: "tabBarVC") as! UITabBarController
+            
             //로그인 화면 없앰 -> 메모리 절약, 화면에 대한 생명주기 관리
             self.view.window?.windowScene?.keyWindow?.rootViewController = vc
             
